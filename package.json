@@ -1,6 +1,6 @@
 {
   "name": "node-test-cpp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Test snippets of C++.",
   "main": "code_test.js",
   "dependencies": {
