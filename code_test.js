@@ -19,7 +19,7 @@ exports.config = function(_config) {
 
 exports.sanitizer = function(fn) {
     sanitizers.push(fn);
-}
+};
 
 exports.load = function(templateName, templateFile, fn) {
     if(typeof templateName === 'string' && typeof templateFile === 'string') {
@@ -38,8 +38,8 @@ exports.load = function(templateName, templateFile, fn) {
 
 exports.run = function(template, code, out) {
     sanitizers.forEach(function(sanitizer){
-        code = sanitizer.call(this, code);
-    })
+        code = sanitizer.call(this, code) || code;
+    });
     var _template = templates[template],
         source = _template.toString().replace(config.replace, code);
     compileAndRun(source, out);
