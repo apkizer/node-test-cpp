@@ -6,7 +6,8 @@ var config = {
         programs: 'programs',
         replace: '#define USER_DATA'
     },
-    templates = {};
+    templates = {},
+    sanitizers = [];
 
 exports.config = function(_config) {
     for(var property in _config) {
@@ -15,6 +16,10 @@ exports.config = function(_config) {
         }
     }
 };
+
+exports.sanitizer = function(fn) {
+    sanitizers.push(fn);
+}
 
 exports.load = function(templateName, templateFile, fn) {
     if(typeof templateName === 'string' && typeof templateFile === 'string') {
@@ -32,6 +37,9 @@ exports.load = function(templateName, templateFile, fn) {
 };
 
 exports.run = function(template, code, out) {
+    sanitizers.forEach(function(sanitizer){
+        code = sanitizer.call(this, code);
+    })
     var _template = templates[template],
         source = _template.toString().replace(config.replace, code);
     compileAndRun(source, out);
