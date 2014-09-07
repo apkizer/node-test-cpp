@@ -1,0 +1,6 @@
+{
+  "name": "cpp-server",
+  "dependencies": {
+    "express": "^4.8.8"
+  }
+}
